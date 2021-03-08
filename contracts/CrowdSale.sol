@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.8.0;
+pragma solidity >=0.6.12;
 
 import "./ElectionToken.sol";
 
@@ -33,8 +33,8 @@ contract CrowdSale {
 
     function endSale() public {
         require(msg.sender == admin);
-        require(tokenContract.transfer(admin, tokenContract.balanceOf(admin)));
+        require(tokenContract.transfer(admin, tokenContract.balanceOf(address(this))));
 
-        admin.transfer(address(this).balance);
+        selfdestruct(admin);
     }
 }
